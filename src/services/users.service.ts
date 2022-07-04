@@ -34,7 +34,7 @@ class UserService {
     return createUserData;
   }
 
-  public async updateUser(userId: string, userData: CreateUserDto): Promise<User> {
+  public async updateUser(userId: string, userData: any): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
     if (userData.email) {
@@ -46,8 +46,7 @@ class UserService {
       const hashedPassword = await hash(userData.password, 10);
       userData = { ...userData, password: hashedPassword };
     }
-
-    const updateUserById: User = await this.users.findByIdAndUpdate(userId, { userData });
+    const updateUserById: User = await this.users.findByIdAndUpdate(userId, { ...userData }, { new: true });
     if (!updateUserById) throw new HttpException(409, "You're not user");
 
     return updateUserById;

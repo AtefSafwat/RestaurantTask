@@ -1,25 +1,25 @@
 import { Router } from 'express';
-import UsersController from '@controllers/users.controller';
-import { CreateUserDto } from '@dtos/users.dto';
+import CuisinesController from '@controllers/cuisine.controller';
+import { CreateCuisineDto } from '@dtos/cuisines.dto';
 import { Routes } from '@interfaces/routes.interface';
 import validationMiddleware from '@middlewares/validation.middleware';
 
-class UsersRoute implements Routes {
+class CuisinesRoute implements Routes {
   public path = '/cuisines';
   public router = Router();
-  public usersController = new UsersController();
+  public cuisinesController = new CuisinesController();
 
   constructor() {
     this.initializeRoutes();
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.usersController.getUsers);
-    this.router.get(`${this.path}/:id`, this.usersController.getUserById);
-    this.router.post(`${this.path}`, validationMiddleware(CreateUserDto, 'body'), this.usersController.createUser);
-    this.router.put(`${this.path}/:id`, validationMiddleware(CreateUserDto, 'body', true), this.usersController.updateUser);
-    this.router.delete(`${this.path}/:id`, this.usersController.deleteUser);
+    this.router.get(`${this.path}`, this.cuisinesController.getCuisines);
+    this.router.get(`${this.path}/:id`, this.cuisinesController.getCuisineById);
+    this.router.post(`${this.path}`, validationMiddleware(CreateCuisineDto, 'body'), this.cuisinesController.createCuisine);
+    this.router.put(`${this.path}/:id`, validationMiddleware(CreateCuisineDto, 'body', true), this.cuisinesController.updateCuisine);
+    this.router.delete(`${this.path}/:id`, this.cuisinesController.deleteCuisine);
   }
 }
 
-export default UsersRoute;
+export default CuisinesRoute;
