@@ -19,6 +19,20 @@ class RestaurantService {
 
   //get all restaurant also get all restaurant filtration by cuisine
   public async findAllRestaurantWithInKm(req: Request): Promise<Restaurant[]> {
+    const multiplier = 0.001;
+
+    const s = await this.restaurants.aggregate([
+      {
+        $geoNear: {
+          near: {
+            type: 'Point',
+            coordinates: [29.996336592217254, 31.16489450220801],
+          },
+          distanceField: 'distance',
+          distanceMultiplier: multiplier,
+        },
+      },
+    ]);
     const restaurants: Restaurant[] = await this.restaurants.find({
       location: {
         $near: {

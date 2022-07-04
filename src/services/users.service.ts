@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import cuisineModel from '@models/cuisines.model';
 import { Cuisine } from './../interfaces/cuisine.interface';
 import { hash } from 'bcrypt';
@@ -77,6 +78,30 @@ class UserService {
     if (!cuisine) throw new HttpException(409, 'There in no cuisine with this id');
     return this.users.findByIdAndUpdate(user._id, { $pull: { favoriteCuisine: cuisineId } }, { new: true });
     //add cuisine to user list of favorite
+  }
+
+  public async getUSersRelatedToCuisine(req: Request) {
+    //get cuisine to get check if the cuisine id already exists
+    const cuisine = await cuisineModel.findById(req.query.cuisineId);
+    if (!cuisine) throw new HttpException(409, 'There in no cuisine with this id');
+
+    const data = await userModel.aggregate([
+      {
+        //get get the relation with restaurant to get owners
+        $lookup: {
+          from: 'restaurants',
+          localField: '_id',
+          foreignField: 'ownerId',
+          as: 'restaurant',
+        },
+      },
+      {
+        // get user who are owner of restaurant has cuisine or users who has
+        $match: { $or: [{ 'restaurant.cuisineId': cuisine._id }, { favoriteCuisine: cuisine._id }] },
+      },
+    ]);
+
+    return data;
   }
 }
 

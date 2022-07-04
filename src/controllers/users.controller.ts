@@ -82,6 +82,18 @@ class UsersController {
       next(error);
     }
   };
+  // function to list of users for a specific Cuisine (e.g. Burgers) that have the following criteria:
+  // User has CuisineID as part of their Favorite Cuisines
+  // User has a restaurant where the Cuisine is CuisineID
+  public getUSersRelatedToCuisine = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const user: any = await this.userService.getUSersRelatedToCuisine(req);
+
+      res.status(200).json({ data: user });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default UsersController;
