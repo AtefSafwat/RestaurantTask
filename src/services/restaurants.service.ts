@@ -1,3 +1,7 @@
+import { User } from '@interfaces/users.interface';
+import { Cuisine } from './../interfaces/cuisine.interface';
+import userModel from '@models/users.model';
+import cuisineModel from '@models/cuisines.model';
 import { Restaurant } from '../interfaces/restaurant.interface';
 import { CreateRestaurantDto } from '@dtos/restaurants.dto';
 import { HttpException } from '@exceptions/HttpException';
@@ -29,9 +33,23 @@ class RestaurantService {
     // if there is one with the same name throw error
     if (findRestaurant) throw new HttpException(409, `Restaurant  slug name ${restaurantData.slugName} already exists`);
 
+    //check if there is cuisine
+    const cuisine: Cuisine = await cuisineModel.findOne({ _id: restaurantData.cuisineId });
+    if (!cuisine) throw new HttpException(409, `Cuisine id is not exists`);
+    //check if there is user exists to be owner
+    const user: User = await userModel.findOne({ _id: restaurantData.ownerId });
+    if (!user) throw new HttpException(409, `Cuisine id is not exists`);
+
     //create new restaurant
     //to add lat and long as the same as model schema tpe
-    const data = { ...restaurantData, ...{ location: { lat: restaurantData.lat, long: restaurantData.long } } };
+    const data = {
+      ...restaurantData,
+      ...{
+        location: { lat: restaurantData.lat, long: restaurantData.long },
+        ownerId: user,
+        cuisineId: cuisine,
+      },
+    };
     const createRestaurantData: Restaurant = await this.restaurants.create({ ...data });
 
     // return created restaurant
