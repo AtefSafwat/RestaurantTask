@@ -1,0 +1,781 @@
+{
+	"info": {
+		"_postman_id": "9e20eeae-9cb3-493a-9fd7-d840cedefd21",
+		"name": "Qurba task Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11459960"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get list of users who has this cuision id or has part of their Favorite Cuisines",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "slugName",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "ownerId",
+									"value": "62c2310a4143a35bd8a875b6",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "234123213",
+									"type": "text"
+								},
+								{
+									"key": "long",
+									"value": "e231344",
+									"type": "text"
+								},
+								{
+									"key": "cuisineId",
+									"value": "62c2753c08351167a028c5b0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/users/userRouteTest?cuisineId=62c2753c08351167a028c5b0",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"users",
+								"userRouteTest"
+							],
+							"query": [
+								{
+									"key": "cuisineId",
+									"value": "62c2753c08351167a028c5b0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "atifsafwat@ss.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "atef safwat",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/users?email=atf&password=asdasdQ@1",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "atf"
+								},
+								{
+									"key": "password",
+									"value": "asdasdQ@1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{$domain}}/users",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add cuisine to favourite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authentication",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cuisineId",
+									"value": "62c2753c08351167a028c5b0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/users/addToFav",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"users",
+								"addToFav"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove cuisine from favorite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authentication",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cuisineId",
+									"value": "62c2753c08351167a028c5b0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/users/removeFromFav",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"users",
+								"removeFromFav"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "atifsafwat@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "atef safwat",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/users/62c224544fb7fc33181be9d9",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"users",
+								"62c224544fb7fc33181be9d9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "atifsafwat@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "atef safwat",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/users/62c0456803dbc36e64cde564",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"users",
+								"62c0456803dbc36e64cde564"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update userd",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "atifsafwat@eeeee.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "atef safwat",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/users/62c224544fb7fc33181be9d9",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"users",
+								"62c224544fb7fc33181be9d9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "restaurant",
+			"item": [
+				{
+					"name": "create restuarant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "slugName",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "ownerId",
+									"value": "62c2310a4143a35bd8a875b6",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "234123213",
+									"type": "text"
+								},
+								{
+									"key": "long",
+									"value": "e231344",
+									"type": "text"
+								},
+								{
+									"key": "cuisineId",
+									"value": "62c2753c08351167a028c5b0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/restaurant",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"restaurant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update restaurant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "restaurnat3",
+									"type": "text"
+								},
+								{
+									"key": "slugName",
+									"value": "resturant",
+									"type": "text"
+								},
+								{
+									"key": "ownerId",
+									"value": "62c224544fb7fc33181be9d9",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "234123213",
+									"type": "text"
+								},
+								{
+									"key": "long",
+									"value": "e231344",
+									"type": "text"
+								},
+								{
+									"key": "cuisineId",
+									"value": "62c224544fb7fc33181be9d9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/restaurant/62c231acbaf19162b0fc7474",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"restaurant",
+								"62c231acbaf19162b0fc7474"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all restaurant",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{$domain}}/restaurant",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"restaurant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all restaurant With in 1 km",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{$domain}}/restaurant/nearBy?long=24.6837&lat=-81.0780",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"restaurant",
+								"nearBy"
+							],
+							"query": [
+								{
+									"key": "long",
+									"value": "24.6837"
+								},
+								{
+									"key": "lat",
+									"value": "-81.0780"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get restaurant by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "atifsafwat@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "atef safwat",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/restaurant/62c0456803dbc36e64cde564",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"restaurant",
+								"62c0456803dbc36e64cde564"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete restaurantby id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "atifsafwat@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "atef safwat",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/restaurant/62c0456803dbc36e64cde564",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"restaurant",
+								"62c0456803dbc36e64cde564"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cuisines",
+			"item": [
+				{
+					"name": "create cuisines",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "cuisione one",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/cuisines",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"cuisines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update cuisines",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "wdasd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/cuisines/62c231acbaf19162b0fc7474",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"cuisines",
+								"62c231acbaf19162b0fc7474"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all cuisines",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{$domain}}/cuisines",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"cuisines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cuisines by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "atifsafwat@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "atef safwat",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/cuisines/62c0456803dbc36e64cde564",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"cuisines",
+								"62c0456803dbc36e64cde564"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete restaurantby id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "atifsafwat@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "fullName",
+									"value": "atef safwat",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/cuisines/62c0456803dbc36e64cde564",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"cuisines",
+								"62c0456803dbc36e64cde564"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authntication",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{$email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{$password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{$domain}}/login",
+							"host": [
+								"{{$domain}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
