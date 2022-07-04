@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import { User } from '@interfaces/users.interface';
 import { Cuisine } from './../interfaces/cuisine.interface';
 import userModel from '@models/users.model';
@@ -10,9 +11,9 @@ import { isEmpty } from '@utils/util';
 
 class RestaurantService {
   public restaurants = restaurantModel;
-  //get all restaurant
-  public async findAllRestaurant(): Promise<Restaurant[]> {
-    const restaurants: Restaurant[] = await this.restaurants.find();
+  //get all restaurant also get all restaurant filtration by cuisine
+  public async findAllRestaurant(req: Request): Promise<Restaurant[]> {
+    const restaurants: Restaurant[] = await this.restaurants.find({ ...req.query });
     return restaurants;
   }
   // get restaurant with restaurant id or uniq slug name
@@ -68,8 +69,23 @@ class RestaurantService {
         throw new HttpException(409, `Restaurant  slug name ${restaurantData.slugName} already exists`);
     }
     //to add lat and long as the same as model schema tpe
-    const data = { ...restaurantData, ...{ location: { lat: restaurantData.lat, long: restaurantData.long } } };
+    //check if there is cuisine
+    const cuisine: Cuisine = await cuisineModel.findOne({ _id: restaurantData.cuisineId });
+    if (!cuisine) throw new HttpException(409, `Cuisine id is not exists`);
+    //check if there is user exists to be owner
+    const user: User = await userModel.findOne({ _id: restaurantData.ownerId });
+    if (!user) throw new HttpException(409, `Cuisine id is not exists`);
 
+    //create new restaurant
+    //to add lat and long as the same as model schema tpe
+    const data = {
+      ...restaurantData,
+      ...{
+        location: { lat: restaurantData.lat, long: restaurantData.long },
+        ownerId: user,
+        cuisineId: cuisine,
+      },
+    };
     const updateRestaurantById: Restaurant = await this.restaurants.findByIdAndUpdate(restaurantId, { ...data });
     if (!updateRestaurantById) throw new HttpException(409, 'There is no restaurant');
 

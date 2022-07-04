@@ -8,7 +8,7 @@ class RestaurantsController {
 
   public getRestaurants = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllRestaurantsData: Restaurant[] = await this.restaurantService.findAllRestaurant();
+      const findAllRestaurantsData: Restaurant[] = await this.restaurantService.findAllRestaurant(req);
 
       res.status(200).json({ data: findAllRestaurantsData, message: 'findAll' });
     } catch (error) {
