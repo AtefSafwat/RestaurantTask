@@ -20,12 +20,9 @@ const restaurantSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Cuisine',
   },
-  location: {
-    lat: String,
-    long: String,
-  },
+  location: { type: { type: String }, coordinates: [Number] },
 });
-
 const restaurantModel = model<Restaurant & Document>('Restaurant', restaurantSchema);
+restaurantModel.createIndexes({ point: '2dsphere' });
 
 export default restaurantModel;

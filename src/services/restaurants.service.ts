@@ -16,6 +16,22 @@ class RestaurantService {
     const restaurants: Restaurant[] = await this.restaurants.find({ ...req.query });
     return restaurants;
   }
+
+  //get all restaurant also get all restaurant filtration by cuisine
+  public async findAllRestaurantWithInKm(req: Request): Promise<Restaurant[]> {
+    const restaurants: Restaurant[] = await this.restaurants.find({
+      location: {
+        $near: {
+          $maxDistance: 1000,
+          $geometry: {
+            type: 'Point',
+            coordinates: [29.996336592217254, 31.16489450220801],
+          },
+        },
+      },
+    });
+    return restaurants;
+  }
   // get restaurant with restaurant id or uniq slug name
   public async findRestaurantById(restaurantId: string): Promise<Restaurant> {
     if (isEmpty(restaurantId)) throw new HttpException(400, 'There is no restaurantId');
@@ -46,7 +62,7 @@ class RestaurantService {
     const data = {
       ...restaurantData,
       ...{
-        location: { lat: restaurantData.lat, long: restaurantData.long },
+        location: { type: 'Point', coordinates: [restaurantData.long, restaurantData.lat] },
         ownerId: user,
         cuisineId: cuisine,
       },
@@ -81,7 +97,7 @@ class RestaurantService {
     const data = {
       ...restaurantData,
       ...{
-        location: { lat: restaurantData.lat, long: restaurantData.long },
+        location: { type: 'Point', coordinates: [restaurantData.long, restaurantData.lat] },
         ownerId: user,
         cuisineId: cuisine,
       },

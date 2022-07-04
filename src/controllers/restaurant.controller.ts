@@ -16,6 +16,16 @@ class RestaurantsController {
     }
   };
 
+  public findAllRestaurantWithInKm = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const findAllRestaurantsData: Restaurant[] = await this.restaurantService.findAllRestaurantWithInKm(req);
+
+      res.status(200).json({ data: findAllRestaurantsData, message: 'findAll' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public getRestaurantById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const restaurantId: string = req.params.id;

@@ -16,6 +16,7 @@ class RestaurantsRoute implements Routes {
 
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.restaurantController.getRestaurants);
+    this.router.get(`${this.path}/nearBy`, this.restaurantController.findAllRestaurantWithInKm);
     this.router.get(`${this.path}/:id`, this.restaurantController.getRestaurantById);
     this.router.post(
       `${this.path}`,
