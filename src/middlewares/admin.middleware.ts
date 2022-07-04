@@ -5,7 +5,7 @@ import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken, RequestWithUser } from '@interfaces/auth.interface';
 import userModel from '@models/users.model';
 
-const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+const adminMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
     const Authorization = req.cookies['Authorization'] || (req.header('Authorization') ? req.header('Authorization').split('Bearer ')[1] : null);
 
@@ -33,4 +33,4 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
   }
 };
 
-export default authMiddleware;
+export default adminMiddleware;

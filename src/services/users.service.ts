@@ -1,9 +1,12 @@
+import cuisineModel from '@models/cuisines.model';
+import { Cuisine } from './../interfaces/cuisine.interface';
 import { hash } from 'bcrypt';
 import { CreateUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { User } from '@interfaces/users.interface';
 import userModel from '@models/users.model';
 import { isEmpty } from '@utils/util';
+import { Schema } from 'mongoose';
 
 class UserService {
   public users = userModel;
@@ -57,6 +60,23 @@ class UserService {
     if (!deleteUserById) throw new HttpException(409, "You're not user");
 
     return deleteUserById;
+  }
+
+  //function to add fav icon
+  public async addCuisineToFavorite(user: User, cuisineId: string): Promise<User> {
+    const cuisine: Cuisine = await cuisineModel.findOne({ _id: cuisineId });
+    //check if there is no cuisine
+    if (!cuisine) throw new HttpException(409, 'There in no cuisine with this id');
+    return this.users.findByIdAndUpdate(user._id, { $addToSet: { favoriteCuisine: cuisine } }, { new: true });
+    //add cuisine to user list of favorite
+  }
+
+  public async removeCuisineToFavorite(user: User, cuisineId: string): Promise<User> {
+    const cuisine: Cuisine = await cuisineModel.findOne({ _id: cuisineId });
+    //check if there is no cuisine
+    if (!cuisine) throw new HttpException(409, 'There in no cuisine with this id');
+    return this.users.findByIdAndUpdate(user._id, { $pull: { favoriteCuisine: cuisineId } }, { new: true });
+    //add cuisine to user list of favorite
   }
 }
 

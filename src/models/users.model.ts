@@ -13,8 +13,15 @@ const userSchema: Schema = new Schema({
   },
   isAdmin: {
     type: Boolean,
+    default: false,
   },
-
+  favoriteCuisine: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Cuisine',
+      default: [],
+    },
+  ],
   password: {
     type: String,
     required: true,

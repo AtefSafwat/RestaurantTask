@@ -1,3 +1,4 @@
+import authMiddleware from '@middlewares/auth.middleware';
 import { Router } from 'express';
 import UsersController from '@controllers/users.controller';
 import { CreateUserDto } from '@dtos/users.dto';
@@ -14,11 +15,16 @@ class UsersRoute implements Routes {
   }
 
   private initializeRoutes() {
+    //user crud operation
     this.router.get(`${this.path}`, this.usersController.getUsers);
     this.router.get(`${this.path}/:id`, this.usersController.getUserById);
     this.router.post(`${this.path}`, validationMiddleware(CreateUserDto, 'body'), this.usersController.createUser);
     this.router.put(`${this.path}/:id`, validationMiddleware(CreateUserDto, 'body', true), this.usersController.updateUser);
     this.router.delete(`${this.path}/:id`, this.usersController.deleteUser);
+    //add cuisine to favorite
+    this.router.post(`${this.path}/addToFav`, authMiddleware, this.usersController.addCuisineToFavorite);
+    //remove cuisine from favorite
+    this.router.post(`${this.path}/removeFromFav`, authMiddleware, this.usersController.removeCuisineToFavorite);
   }
 }
 
