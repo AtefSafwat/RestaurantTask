@@ -1,120 +1,363 @@
+openapi: 3.0.0
+info:
+  title: Qurba task Collection
+  version: 1.0.0
+servers:
+  - url: http://{{$domain}}
 tags:
-- name: users
-  description: users API
-
+  - name: users
+  - name: restaurant
+  - name: cuisines
+  - name: Authntication
 paths:
-# [GET] users
-  /users:
+  /users/userRouteTest:
     get:
       tags:
-      - users
-      summary: Find All Users
+        - users
+      summary: >-
+        get list of users who has this cuision id or has part of their Favorite
+        Cuisines
+      parameters:
+        - name: cuisineId
+          in: query
+          schema:
+            type: string
+          example: 62c2753c08351167a028c5b0
       responses:
-        200:
-          description: 'OK'
-        500:
-          description: 'Server Error'
-
-# [POST] users
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users:
     post:
       tags:
-      - users
-      summary: Add User
+        - users
+      summary: create user
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                password:
+                  type: string
+                  example: password
+                email:
+                  type: string
+                  example: atifsafwat@ss.com
+                fullName:
+                  type: string
+                  example: atef safwat
       parameters:
-      - name: body
-        in: body
-        description: user Data
-        required: true
-        schema:
-          $ref: '#/definitions/users'
+        - name: email
+          in: query
+          schema:
+            type: string
+          example: atf
+        - name: password
+          in: query
+          schema:
+            type: string
+          example: asdasdQ@1
       responses:
-        201:
-          description: 'Created'
-        400:
-          description: 'Bad Request'
-        409:
-          description: 'Conflict'
-        500:
-          description: 'Server Error'
-
-# [GET] users/id
-  /users/{id}:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
     get:
       tags:
-      - users
-      summary: Find User By Id
-      parameters:
-      - name: id
-        in: path
-        description: User Id
-        required: true
+        - users
+      summary: get all users
       responses:
-        200:
-          description: 'OK'
-        409:
-          description: 'Conflict'
-        500:
-          description: 'Server Error'
-
-# [PUT] users/id
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/addToFav:
+    post:
+      tags:
+        - users
+      summary: add cuisine to favourite
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                cuisineId:
+                  type: string
+                  example: 62c2753c08351167a028c5b0
+      parameters:
+        - name: Authentication
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/removeFromFav:
+    post:
+      tags:
+        - users
+      summary: remove cuisine from favorite
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                cuisineId:
+                  type: string
+                  example: 62c2753c08351167a028c5b0
+      parameters:
+        - name: Authentication
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/62c224544fb7fc33181be9d9:
+    get:
+      tags:
+        - users
+      summary: get user by id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
     put:
       tags:
-      - users
-      summary: Update User By Id
-      parameters:
-      - name: id
-        in: path
-        description: user Id
-        required: true
-      - name: body
-        in: body
-        description: user Data
-        required: true
-        schema:
-          $ref: '#/definitions/users'
+        - users
+      summary: update userd
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                password:
+                  type: string
+                  example: password
+                email:
+                  type: string
+                  example: atifsafwat@eeeee.com
+                fullName:
+                  type: string
+                  example: atef safwat
       responses:
-        200:
-          description: 'OK'
-        400:
-          description: 'Bad Request'
-        409:
-          description: 'Conflict'
-        500:
-          description: 'Server Error'
-
-# [DELETE] users/id
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/62c0456803dbc36e64cde564:
     delete:
       tags:
-      - users
-      summary: Delete User By Id
-      parameters:
-      - name: id
-        in: path
-        description: user Id
-        required: true
+        - users
+      summary: delete user by id
       responses:
-        200:
-          description: 'OK'
-        409:
-          description: 'Conflict'
-        500:
-          description: 'Server Error'
-
-# definitions
-definitions:
-  users:
-    type: object
-    required:
-        - email
-        - password
-    properties:
-      email:
-        type: string
-        description: user Email
-      password:
-        type: string
-        description: user Password
-
-schemes:
- - https
- - http
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /restaurant:
+    post:
+      tags:
+        - restaurant
+      summary: create restuarant
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: test
+                slugName:
+                  type: string
+                  example: test
+                ownerId:
+                  type: string
+                  example: 62c2310a4143a35bd8a875b6
+                lat:
+                  type: integer
+                  example: '234123213'
+                long:
+                  type: string
+                  example: e231344
+                cuisineId:
+                  type: string
+                  example: 62c2753c08351167a028c5b0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - restaurant
+      summary: get all restaurant
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /restaurant/62c231acbaf19162b0fc7474:
+    put:
+      tags:
+        - restaurant
+      summary: update restaurant
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: restaurnat3
+                slugName:
+                  type: string
+                  example: resturant
+                ownerId:
+                  type: string
+                  example: 62c224544fb7fc33181be9d9
+                lat:
+                  type: integer
+                  example: '234123213'
+                long:
+                  type: string
+                  example: e231344
+                cuisineId:
+                  type: string
+                  example: 62c224544fb7fc33181be9d9
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /restaurant/nearBy:
+    get:
+      tags:
+        - restaurant
+      summary: get all restaurant With in 1 km
+      parameters:
+        - name: long
+          in: query
+          schema:
+            type: number
+          example: '24.6837'
+        - name: lat
+          in: query
+          schema:
+            type: number
+          example: '-81.0780'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /restaurant/62c0456803dbc36e64cde564:
+    get:
+      tags:
+        - restaurant
+      summary: get restaurant by id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - restaurant
+      summary: delete restaurantby id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /cuisines:
+    post:
+      tags:
+        - cuisines
+      summary: create cuisines
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: cuisione one
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - cuisines
+      summary: get all cuisines
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /cuisines/62c231acbaf19162b0fc7474:
+    put:
+      tags:
+        - cuisines
+      summary: update cuisines
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: wdasd
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /cuisines/62c0456803dbc36e64cde564:
+    get:
+      tags:
+        - cuisines
+      summary: get cuisines by id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - cuisines
+      summary: delete restaurantby id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /login:
+    post:
+      tags:
+        - Authntication
+      summary: login
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                email:
+                  type: string
+                  example: '{{$email}}'
+                password:
+                  type: string
+                  example: '{{$password}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
