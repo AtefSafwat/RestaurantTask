@@ -19,31 +19,17 @@ class RestaurantService {
 
   //get all restaurant also get all restaurant filtration by cuisine
   public async findAllRestaurantWithInKm(req: Request): Promise<Restaurant[]> {
-    const multiplier = 0.001;
+    const oneKiloMeterInRadius = 0.00016202029525694294; //get 1 km in radius
 
-    const s = await this.restaurants.aggregate([
-      {
-        $geoNear: {
-          near: {
-            type: 'Point',
-            coordinates: [29.996336592217254, 31.16489450220801],
-          },
-          distanceField: 'distance',
-          distanceMultiplier: multiplier,
-        },
-      },
-    ]);
-    const restaurants: Restaurant[] = await this.restaurants.find({
+    const restaurants = await this.restaurants.find({
       location: {
-        $near: {
-          $maxDistance: 1000,
-          $geometry: {
-            type: 'Point',
-            coordinates: [29.996336592217254, 31.16489450220801],
-          },
+        $geoWithin: {
+          //get the restaurants within 1km
+          $centerSphere: [[req.query.long, req.query.lat], oneKiloMeterInRadius],
         },
       },
     });
+
     return restaurants;
   }
   // get restaurant with restaurant id or uniq slug name
